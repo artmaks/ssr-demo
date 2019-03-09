@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+import Repos from './Repos'
+import Dashboard from './Dashboard'
+
 
 class App extends Component {
     render () {
         return (
-            <div>
-                React Hello World
-            </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={Dashboard} />
+                    <Route exact path="/user/:userName" component={Repos} />
+                </Switch>
+            </BrowserRouter>
         );
     }
 }
