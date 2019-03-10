@@ -37,7 +37,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getRepos: (userName) => {
-      dispatch(getReposAsync(userName));
+      return dispatch(getReposAsync(userName));
     },
   });
 
