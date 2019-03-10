@@ -23,9 +23,9 @@ class Repos extends Component {
     render () {
         return (
             <div>
-                {this.props.repos.map((repo) => (
+                {this.props.repos ? this.props.repos.map((repo) => (
                     <div key={repo.id}>{repo.name}</div>
-                ))}
+                )) : 'Загрузка репозиториев'}
             </div>
         );
     }
