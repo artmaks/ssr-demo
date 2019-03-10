@@ -1,2 +1,3 @@
 const { resolve } = require('path');
-module.exports = require(resolve(__dirname, 'webpack', `webpack.config`));
+process.env.PLATFORM = process.env.PLATFORM || 'browser';
+module.exports = require(resolve(__dirname, 'webpack', `${process.env.PLATFORM}.config`));
