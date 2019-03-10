@@ -29,7 +29,7 @@ class Dashboard extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         GitHub Login:
-                        <input value={this.state.input} onChange={this.handleChange} />
+                        <input onChange={this.handleChange} />
                     </label>
                     <input type="submit" value="Перейти" />
                 </form>
