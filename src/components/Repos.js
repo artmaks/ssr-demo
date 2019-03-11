@@ -12,12 +12,16 @@ class Repos extends Component {
         };
     }
 
-    componentDidMount() {
+    fetchData () {
         const { match } = this.props;
         const userName =  match.params.userName;
         if (userName) {
             this.props.getRepos(match.params.userName);
         }
+    }
+
+    componentDidMount() {
+        this.fetchData();
     }
 
     render () {
