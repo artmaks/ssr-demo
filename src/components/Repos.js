@@ -2,21 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import { getReposAsync } from '../state/actions';
+import { FetchContext } from './../context/fetch';
 
 
 class Repos extends Component {
-    constructor (props) {
-        super(props);
+    constructor (props, context) {
+        super(props, context);
         this.state = {
             repos: [],
         };
+        if (typeof window === 'undefined' || !window.__PRELOADED_STATE__) {
+            this.fetchData();
+        }
     }
 
-    componentDidMount() {
+    fetchData () {
         const { match } = this.props;
-        const userName =  match.params.userName;
+        const userName = match.params.userName;
+        let fetches = this.context;
         if (userName) {
-            this.props.getRepos(match.params.userName);
+            const promise = this.props.getRepos(match.params.userName);
+            fetches.push(promise);
         }
     }
 
@@ -31,13 +37,15 @@ class Repos extends Component {
     }
 }
 
+Repos.contextType = FetchContext;
+
 const mapStateToProps = state => ({
     repos: state.repos,
 });
 
 const mapDispatchToProps = dispatch => ({
     getRepos: (userName) => {
-      dispatch(getReposAsync(userName));
+      return dispatch(getReposAsync(userName));
     },
   });
 

@@ -1,3 +1,6 @@
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 const GIT_URL = 'https://api.github.com';
 
 export const getRepos = (username) => {
