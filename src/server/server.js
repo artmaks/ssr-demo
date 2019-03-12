@@ -3,14 +3,14 @@ const app = express();
 const path = require('path');
 const port = process.env.PORT || 8000;
 
-const { serverAppRenderer } = require('../../public/ssr.bundle.js');
+const { serverAppRenderer } = require('../../public/server.bundle.js');
 const templateFn = require('./template');
 
 
 app.use(express.static(path.join(__dirname, '/../../public')));
 
 app.get('*', (req, res) => {
-    const html = serverAppRenderer();
+    const { html } = serverAppRenderer(req);
     res.send(templateFn(html));
 })
 

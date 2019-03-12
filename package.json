@@ -6,7 +6,9 @@
   "scripts": {
     "nodemon": "nodemon ./src/server/server.js",
     "watch": "npm run build -- --watch --progress",
+    "watch:ssr": "npm run build:ssr -- --watch --progress",
     "build": "PLATFORM=browser webpack --mode development",
+    "build:ssr": "PLATFORM=server webpack --mode development",
     "build:prod": "PLATFORM=browser webpack --mode production"
   },
   "repository": {

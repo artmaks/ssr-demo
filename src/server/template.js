@@ -8,7 +8,7 @@ const templateFn = (html) => (`
         <div id="root">
             ${html}
         </div>
-        <script src="/bundle.js"></script>
+        <script src="/browser.bundle.js"></script>
     </body>
     </html>
 `);

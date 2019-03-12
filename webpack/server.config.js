@@ -1,7 +1,9 @@
 module.exports = {
-    entry: './src/index.js',
+    target: 'node',
+    entry: './src/server/index.js',
     output: {
-        filename: 'browser.bundle.js',
+        filename: 'server.bundle.js',
+        libraryTarget: 'commonjs2',
         path: __dirname + '/../public',
     },
     module: {
