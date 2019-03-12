@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nodemon": "nodemon ./src/server.js",
+    "nodemon": "nodemon ./src/server/server.js",
     "watch": "npm run build -- --watch --progress",
     "build": "PLATFORM=browser webpack --mode development",
     "build:prod": "PLATFORM=browser webpack --mode production"
