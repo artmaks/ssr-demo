@@ -1,9 +1,12 @@
-const templateFn = (html) => (`
+const templateFn = (html, preloadedState) => (`
     <!DOCTYPE html>
     <html>
     <head>
         <title>SSR DEMO APP</title>
     </head>
+    <script>
+        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
+    </script>
     <body>
         <div id="root">
             ${html}

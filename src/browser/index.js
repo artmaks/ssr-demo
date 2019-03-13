@@ -7,15 +7,23 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './../components/App';
 import rootReducer from './../state/reducers';
+import { FetchContext } from './../context/FetchContext';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(rootReducer);
+const store = createStoreWithMiddleware(rootReducer, window.__PRELOADED_STATE__);
+
+const fetches = [];
 
 hydrate(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <FetchContext.Provider value={fetches}>
+                <App />
+            </FetchContext.Provider>
         </BrowserRouter>
     </Provider>,
-    document.querySelector('#root')
+    document.querySelector('#root'),
+    () => {
+        delete window.__PRELOADED_STATE__;
+    }
 );

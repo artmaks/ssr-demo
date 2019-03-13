@@ -7,20 +7,33 @@ import { StaticRouter } from 'react-router-dom';
 
 import App from './../components/App';
 import rootReducer from './../state/reducers';
+import { FetchContext } from './../context/FetchContext';
 
 export const serverAppRenderer = (req) => {
     const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
     const store = createStoreWithMiddleware(rootReducer);
 
-    const html = renderToString(
+    const fetches = [];
+
+    const AppForRender = (
         <Provider store={store}>
             <StaticRouter location={req.url} context={{}}>
-                <App />
+                <FetchContext.Provider value={fetches}>
+                    <App />
+                </FetchContext.Provider>
             </StaticRouter>
         </Provider>
     );
 
-    return {
-        html,
-    }
+    renderToString(AppForRender);
+
+    return Promise.all(fetches).then(() => {
+        const html = renderToString(AppForRender);
+        const preloadedState = store.getState();
+
+        return {
+            html,
+            preloadedState,
+        };
+    });
 }

@@ -2,26 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import { getReposAsync } from '../state/actions';
+import { FetchContext } from './../context/FetchContext';
 
 
 class Repos extends Component {
-    constructor (props) {
-        super(props);
+    constructor (props, context) {
+        super(props, context);
         this.state = {
             repos: [],
         };
+
+        if (typeof window === 'undefined' || !window.__PRELOADED_STATE__) {
+            this.fetchData();
+        }
     }
 
     fetchData () {
         const { match } = this.props;
         const userName =  match.params.userName;
         if (userName) {
-            this.props.getRepos(match.params.userName);
+            const fetches = this.context;
+            const promise = this.props.getRepos(match.params.userName);
+            fetches.push(promise);
         }
-    }
-
-    componentDidMount() {
-        this.fetchData();
     }
 
     render () {
@@ -34,6 +37,7 @@ class Repos extends Component {
         );
     }
 }
+Repos.contextType = FetchContext;
 
 const mapStateToProps = state => ({
     repos: state.repos,
